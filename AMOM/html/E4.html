@@ -1,0 +1,429 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>E4</title><meta name="generator" content="MATLAB 8.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-02-15"><meta name="DC.source" content="E4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Introduction</a></li><li><a href="#2">Part A</a></li><li><a href="#3">Part B</a></li><li><a href="#4">Part C</a></li><li><a href="#5">Part D</a></li></ul></div><h2>Introduction<a name="1"></a></h2><p>David Vadnais extended Homework 1 Problem 3</p><pre class="codeinput">clear; clc;
+</pre><h2>Part A<a name="2"></a></h2><p>GIVENS Strain CWID = **2326</p><pre class="codeinput">c11 = .4450;
+c12 = .3950;
+c13=.4050;
+c33=.4440;
+c44=0.0655;
+c66=0.1220;
+<span class="comment">%tetragonal solid</span>
+c22= c11;
+c23=c13;
+c55=c44;
+
+ciijj = (c11+c12+c13+c22+c23+c13+c23+c33)*10^10
+cijij= (c11+c66+c55+c66+c22+c44+c55+c44+c33)*10^10
+
+lambV = 1/15*(2*ciijj-cijij)
+muV=1/30*(3*cijij-ciijj)
+
+disp(<span class="string">'Vogt average elastic modulus (GPa)'</span>)
+disp(lambV/10^9)
+disp(<span class="string">'Vogt average rigidity modulus (GPa)'</span>)
+disp(muV/10^9)
+</pre><pre class="codeoutput">
+ciijj =
+
+   3.3490e+10
+
+
+cijij =
+
+   1.8400e+10
+
+
+lambV =
+
+   3.2387e+09
+
+
+muV =
+
+   7.2367e+08
+
+Vogt average elastic modulus (GPa)
+    3.2387
+
+Vogt average rigidity modulus (GPa)
+    0.7237
+
+</pre><h2>Part B<a name="3"></a></h2><pre class="codeinput">c = [c11,c12,c13,0,0,0;<span class="keyword">...</span>
+    c12,c22,c23,0,0,0;<span class="keyword">...</span>
+    c13,c23,c33,0,0,0;<span class="keyword">...</span>
+    0,0,0,c44,0,0;<span class="keyword">...</span>
+    0,0,0,0,c55,0;<span class="keyword">...</span>
+    0,0,0,0,0,c66]*10^10;
+s = inv(c)
+
+siijj = s(1,1)+s(1,2)+s(1,3)+s(1,2)+s(2,2)+s(2,3)+s(1,3)+s(2,3)+s(3,3)
+sijij = s(1,1)+s(6,6)+s(5,5)+s(6,6)+s(2,2)+s(4,4)+s(5,5)+s(4,4)+s(3,3)
+
+EReuss = 1/((1/15)*(2*sijij+siijj))
+GReuss = 1/((1/15)*(6*sijij-2*siijj))
+disp(<span class="string">'Reuss average elastic modulus (GPa)'</span>)
+disp(EReuss/10^9)
+disp(<span class="string">'Reuss average rigidity modulus (GPa)'</span>)
+disp(GReuss/10^9)
+</pre><pre class="codeoutput">
+s =
+
+   1.0e-08 *
+
+    0.1494   -0.0506   -0.0902         0         0         0
+   -0.0506    0.1494   -0.0902         0         0         0
+   -0.0902   -0.0902    0.1870         0         0         0
+         0         0         0    0.1527         0         0
+         0         0         0         0    0.1527         0
+         0         0         0         0         0    0.0820
+
+
+siijj =
+
+   2.4048e-10
+
+
+sijij =
+
+   1.2605e-08
+
+
+EReuss =
+
+   5.8937e+08
+
+
+GReuss =
+
+   1.9960e+08
+
+Reuss average elastic modulus (GPa)
+    0.5894
+
+Reuss average rigidity modulus (GPa)
+    0.1996
+
+</pre><h2>Part C<a name="4"></a></h2><pre class="codeinput">eps = [823,1023,-1023;1023,526,-923;-1023,-923,-526]*10^-6;<span class="comment">%strains</span>
+
+epsV = [eps(1,1);eps(2,2);eps(3,3);2*eps(2,3);2*eps(1,3);2*eps(1,2)];
+
+Sigma = c*epsV;
+
+TensSigma = [Sigma(1),Sigma(6),Sigma(5);<span class="keyword">...</span>
+            Sigma(6),Sigma(2),Sigma(4);<span class="keyword">...</span>
+            Sigma(5),Sigma(4),Sigma(3)];
+<span class="comment">%Invariants</span>
+I1 = trace(TensSigma);
+I2 = TensSigma(1,1)*TensSigma(2,2)+TensSigma(1,1)*TensSigma(3,3)+<span class="keyword">...</span>
+    TensSigma(2,2)*TensSigma(3,3)-TensSigma(1,2)^2-TensSigma(1,3)^2-<span class="keyword">...</span>
+    TensSigma(2,3)^2;
+I3 = det(TensSigma);
+
+sigP = roots([1,-I1,I2,-I3]);
+
+[Vec,Val]=eig(TensSigma)
+
+sig1 = Val(3,3);
+sig2 = Val(2,2);
+sig3 = Val(1,1);
+
+disp(<span class="string">'prinicpal stress 1 (MPa)'</span>)
+disp(sig1/10^6)
+disp(<span class="string">'prinicpal stress 2 (MPa)'</span>)
+disp(sig2/10^6)
+disp(<span class="string">'prinicpal stress 3(MPa)'</span>)
+disp(sig3/10^6)
+</pre><pre class="codeoutput">
+Vec =
+
+    0.7075    0.2760   -0.6506
+   -0.7052    0.3352   -0.6247
+    0.0456    0.9008    0.4318
+
+
+Val =
+
+   1.0e+06 *
+
+    1.0353         0         0
+         0    2.2674         0
+         0         0    6.8963
+
+prinicpal stress 1 (MPa)
+    6.8963
+
+prinicpal stress 2 (MPa)
+    2.2674
+
+prinicpal stress 3(MPa)
+    1.0353
+
+</pre><h2>Part D<a name="5"></a></h2><pre class="codeinput">v=(EReuss-GReuss)/(2*GReuss)
+
+S=[1/EReuss,-v/EReuss,-v/EReuss,0,0,0;<span class="keyword">...</span>
+       -v/EReuss,   1/EReuss,-v/EReuss,0,0,0;<span class="keyword">...</span>
+       -v/EReuss,-v/EReuss,   1/EReuss,0,0,0;<span class="keyword">...</span>
+       0,0,0,1/GReuss,0,0;<span class="keyword">...</span>
+       0,0,0,0,1/GReuss,0;<span class="keyword">...</span>
+       0,0,0,0,0,1/GReuss]
+
+C = inv(S);
+
+SigmaD = C*epsV
+
+TensSigma = [SigmaD(1),SigmaD(6),SigmaD(5);<span class="keyword">...</span>
+            SigmaD(6),SigmaD(2),SigmaD(4);<span class="keyword">...</span>
+            SigmaD(5),SigmaD(4),SigmaD(3)];
+
+<span class="comment">% stress invariants</span>
+I1D = trace(TensSigma);
+I2D = TensSigma(1,1)*TensSigma(2,2)+TensSigma(1,1)*TensSigma(3,3)+<span class="keyword">...</span>
+    TensSigma(2,2)*TensSigma(3,3)-TensSigma(1,2)^2-TensSigma(1,3)^2-<span class="keyword">...</span>
+    TensSigma(2,3)^2;
+I3D = det(TensSigma);
+sigP = roots([1,-I1,I2,-I3])
+
+disp(<span class="string">'prinicpal stress 1 (MPa)'</span>)
+disp(sigP(1)/10^6)
+disp(<span class="string">'prinicpal stress 2 (MPa)'</span>)
+disp(sigP(2)/10^6)
+disp(<span class="string">'prinicpal stress 3(MPa)'</span>)
+disp(sigP(3)/10^6)
+</pre><pre class="codeoutput">
+v =
+
+    0.9764
+
+
+S =
+
+   1.0e-08 *
+
+    0.1697   -0.1657   -0.1657         0         0         0
+   -0.1657    0.1697   -0.1657         0         0         0
+   -0.1657   -0.1657    0.1697         0         0         0
+         0         0         0    0.5010         0         0
+         0         0         0         0    0.5010         0
+         0         0         0         0         0    0.5010
+
+
+SigmaD =
+
+   1.0e+05 *
+
+   -0.0608
+   -0.9465
+   -4.0836
+   -3.6846
+   -4.0838
+    4.0838
+
+
+sigP =
+
+   1.0e+06 *
+
+    6.8963
+    2.2674
+    1.0353
+
+prinicpal stress 1 (MPa)
+    6.8963
+
+prinicpal stress 2 (MPa)
+    2.2674
+
+prinicpal stress 3(MPa)
+    1.0353
+
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Introduction
+% David Vadnais
+% extended Homework 1
+% Problem 3
+clear; clc;
+
+%% Part A
+% GIVENS
+% Strain CWID = ****2326
+c11 = .4450;
+c12 = .3950;
+c13=.4050;
+c33=.4440;
+c44=0.0655;
+c66=0.1220;
+%tetragonal solid
+c22= c11;
+c23=c13;
+c55=c44;
+
+ciijj = (c11+c12+c13+c22+c23+c13+c23+c33)*10^10
+cijij= (c11+c66+c55+c66+c22+c44+c55+c44+c33)*10^10
+
+lambV = 1/15*(2*ciijj-cijij)
+muV=1/30*(3*cijij-ciijj)
+
+disp('Vogt average elastic modulus (GPa)')
+disp(lambV/10^9)
+disp('Vogt average rigidity modulus (GPa)')
+disp(muV/10^9)
+
+%% Part B
+c = [c11,c12,c13,0,0,0;...
+    c12,c22,c23,0,0,0;...
+    c13,c23,c33,0,0,0;...
+    0,0,0,c44,0,0;...
+    0,0,0,0,c55,0;...
+    0,0,0,0,0,c66]*10^10;
+s = inv(c)
+
+siijj = s(1,1)+s(1,2)+s(1,3)+s(1,2)+s(2,2)+s(2,3)+s(1,3)+s(2,3)+s(3,3)
+sijij = s(1,1)+s(6,6)+s(5,5)+s(6,6)+s(2,2)+s(4,4)+s(5,5)+s(4,4)+s(3,3)
+
+EReuss = 1/((1/15)*(2*sijij+siijj))
+GReuss = 1/((1/15)*(6*sijij-2*siijj))
+disp('Reuss average elastic modulus (GPa)')
+disp(EReuss/10^9)
+disp('Reuss average rigidity modulus (GPa)')
+disp(GReuss/10^9)
+
+%% Part C
+eps = [823,1023,-1023;1023,526,-923;-1023,-923,-526]*10^-6;%strains
+
+epsV = [eps(1,1);eps(2,2);eps(3,3);2*eps(2,3);2*eps(1,3);2*eps(1,2)];
+
+Sigma = c*epsV;
+
+TensSigma = [Sigma(1),Sigma(6),Sigma(5);...
+            Sigma(6),Sigma(2),Sigma(4);...
+            Sigma(5),Sigma(4),Sigma(3)];
+%Invariants
+I1 = trace(TensSigma);
+I2 = TensSigma(1,1)*TensSigma(2,2)+TensSigma(1,1)*TensSigma(3,3)+...
+    TensSigma(2,2)*TensSigma(3,3)-TensSigma(1,2)^2-TensSigma(1,3)^2-...
+    TensSigma(2,3)^2;
+I3 = det(TensSigma);
+
+sigP = roots([1,-I1,I2,-I3]);
+
+[Vec,Val]=eig(TensSigma)
+
+sig1 = Val(3,3);
+sig2 = Val(2,2);
+sig3 = Val(1,1);
+
+disp('prinicpal stress 1 (MPa)')
+disp(sig1/10^6)
+disp('prinicpal stress 2 (MPa)')
+disp(sig2/10^6)
+disp('prinicpal stress 3(MPa)')
+disp(sig3/10^6)
+
+
+
+%% Part D
+v=(EReuss-GReuss)/(2*GReuss)
+
+S=[1/EReuss,-v/EReuss,-v/EReuss,0,0,0;...
+       -v/EReuss,   1/EReuss,-v/EReuss,0,0,0;...
+       -v/EReuss,-v/EReuss,   1/EReuss,0,0,0;...
+       0,0,0,1/GReuss,0,0;...
+       0,0,0,0,1/GReuss,0;...
+       0,0,0,0,0,1/GReuss]
+   
+C = inv(S);
+
+SigmaD = C*epsV
+
+TensSigma = [SigmaD(1),SigmaD(6),SigmaD(5);...
+            SigmaD(6),SigmaD(2),SigmaD(4);...
+            SigmaD(5),SigmaD(4),SigmaD(3)];
+
+% stress invariants
+I1D = trace(TensSigma);
+I2D = TensSigma(1,1)*TensSigma(2,2)+TensSigma(1,1)*TensSigma(3,3)+...
+    TensSigma(2,2)*TensSigma(3,3)-TensSigma(1,2)^2-TensSigma(1,3)^2-...
+    TensSigma(2,3)^2;
+I3D = det(TensSigma);
+sigP = roots([1,-I1,I2,-I3])
+
+disp('prinicpal stress 1 (MPa)')
+disp(sigP(1)/10^6)
+disp('prinicpal stress 2 (MPa)')
+disp(sigP(2)/10^6)
+disp('prinicpal stress 3(MPa)')
+disp(sigP(3)/10^6)
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
